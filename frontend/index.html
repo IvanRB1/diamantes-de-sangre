@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Diamantes de Sangre</title>
+    <link rel="stylesheet" href="vendor/semantic/semantic.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="ds">
+<div class="juego">
+
+  <!-- PANEL IZQUIERDO: configuración, saldo y apuesta -->
+  <aside class="panel">
+    <div class="bloque">
+      <div class="etq">N.º de minas</div>
+      <div id="minas-opc" class="ui five mini buttons opciones">
+        <button class="ui button" data-v="1">1</button>
+        <button class="ui button activo" data-v="3">3</button>
+        <button class="ui button" data-v="5">5</button>
+        <button class="ui button" data-v="7">7</button>
+        <button class="ui button" data-v="p">Personal</button>
+      </div>
+      <div class="ui mini input" id="caja-personal" hidden>
+        <input id="minas-personal" type="number" min="1" value="10" aria-label="Minas personalizadas">
+      </div>
+    </div>
+
+    <div class="bloque">
+      <div class="etq">Tamaño de cuadrícula</div>
+      <div id="grid-opc" class="ui four mini buttons opciones">
+        <button class="ui button" data-v="3">3x3</button>
+        <button class="ui button activo" data-v="5">5x5</button>
+        <button class="ui button" data-v="7">7x7</button>
+        <button class="ui button" data-v="9">9x9</button>
+      </div>
+    </div>
+
+    <div class="relleno"></div>
+
+    <div class="saldos">
+      <div><span class="etq">Saldo</span><b id="saldo"></b></div>
+      <div><span class="etq">Ganancia</span><b id="ganancia"></b></div>
+    </div>
+
+    <div class="apuesta-fila">
+      <button id="menos" class="flecha" aria-label="Bajar apuesta"><i class="caret down icon"></i></button>
+      <div id="monto" class="monto"></div>
+      <button id="mas" class="flecha" aria-label="Subir apuesta"><i class="caret up icon"></i></button>
+    </div>
+    <button id="btn-apuesta" class="ui fluid button btn-apuesta">APUESTA</button>
+
+    <nav class="iconos">
+      <button id="btn-sonido" data-p="sonido"><i class="volume up icon"></i>Sonido</button>
+      <button data-p="info"><i class="info circle icon"></i>Info</button>
+      <button data-p="historial"><i class="history icon"></i>Historial</button>
+    </nav>
+  </aside>
+
+  <!-- ZONA CENTRAL -->
+  <section class="mesa">
+    <div class="barra">
+      <span class="resp">Juega responsable</span>
+      <span><b id="reloj"></b></span>
+    </div>
+
+    <h1 class="titulo">Diamantes de Sangre</h1>
+    <div id="mults" class="mults" aria-label="Multiplicadores"></div>
+
+    <div class="tablero-caja">
+      <div id="tablero" class="tablero"></div>
+      <div id="mensaje" class="mensaje"></div>
+    </div>
+
+    <!-- Panel de Info e Historial (consulta a la API) -->
+    <div id="extra" class="extra" hidden>
+      <button id="cerrar" class="cerrar" aria-label="Cerrar"><i class="close icon"></i></button>
+      <h2 id="extra-titulo"></h2>
+      <div id="extra-cuerpo"></div>
+    </div>
+  </section>
+</div>
+
+<div class="pie">El juego es entretenimiento. Juega con moderación. Solo mayores de 18 años.</div>
+<script src="js/app.js"></script>
+</body>
+</html>
