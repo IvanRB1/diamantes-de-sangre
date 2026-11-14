@@ -1,0 +1,99 @@
+/* Diamantes de Sangre v1 - minimalista sobre Semantic UI
+   Colores planos: fondo, panel, línea y un solo acento rubí. */
+@font-face { font-family: "Manrope"; font-weight: 400; src: url("../vendor/fonts/manrope-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Manrope"; font-weight: 600; src: url("../vendor/fonts/manrope-latin-600-normal.woff2") format("woff2"); }
+@font-face { font-family: "Bebas Neue"; font-weight: 400; src: url("../vendor/fonts/bebas-neue-latin-400-normal.woff2") format("woff2"); }
+
+:root {
+  --fondo: #130a0d; --panel: #190d11; --casilla: #261419; --linea: #33202a;
+  --rubi: #d41132; --texto: #f3e4e7; --gris: #98818a;
+}
+body.ds { margin: 0; background: var(--fondo); color: var(--texto); font-family: "Manrope", system-ui, sans-serif; }
+body.ds button { font-family: inherit; cursor: pointer; }
+body.ds button:focus-visible { outline: 2px solid var(--texto); outline-offset: 2px; }
+
+.juego { display: flex; min-height: calc(100vh - 32px); }
+
+/* Panel lateral */
+.panel { width: 250px; flex: none; background: var(--panel); border-right: 1px solid var(--linea);
+  display: flex; flex-direction: column; gap: 18px; padding: 20px 16px; }
+.etq { display: block; font-size: .72rem; color: var(--gris); margin-bottom: 6px; }
+.relleno { flex: 1; }
+
+body.ds .ui.buttons.opciones .ui.button { background: transparent; color: var(--gris); font-weight: 600;
+  border: 1px solid var(--linea); margin: 0; padding: 9px 2px; box-shadow: none; }
+body.ds .ui.buttons.opciones .ui.button:hover:not(:disabled) { color: var(--texto); }
+body.ds .ui.buttons.opciones .ui.button.activo { background: var(--rubi); border-color: var(--rubi); color: #fff; }
+body.ds .ui.buttons.opciones .ui.button:disabled { opacity: .4; }
+#minas-opc { flex-wrap: wrap; }
+#minas-opc .ui.button { flex: 1 0 22%; }
+#minas-opc .ui.button[data-v="p"] { flex: 1 0 100%; }
+#caja-personal { margin-top: 8px; width: 100%; }
+#caja-personal[hidden] { display: none !important; }
+#caja-personal input { background: transparent; color: var(--texto); border-color: var(--linea); }
+
+.saldos { display: grid; grid-template-columns: 1fr 1fr; text-align: center; border-top: 1px solid var(--linea); padding-top: 16px; }
+.saldos b { font-size: .95rem; color: var(--texto); }
+.apuesta-fila { display: flex; align-items: center; justify-content: space-between; }
+.monto { font-weight: 600; border: 1px solid var(--linea); border-radius: 4px; padding: 6px 14px; min-width: 120px; text-align: center; }
+.flecha { background: none; border: 0; color: var(--gris); font-size: 1.3rem; padding: 4px 8px; }
+.flecha:hover:not(:disabled) { color: var(--texto); }
+.flecha:disabled { opacity: .3; }
+body.ds .ui.button.btn-apuesta { background: var(--rubi); color: #fff; font-weight: 600; letter-spacing: .04em; padding: 14px; border-radius: 4px; box-shadow: none; }
+body.ds .ui.button.btn-apuesta:hover { background: #b50e2a; }
+body.ds .ui.button.btn-apuesta:disabled { opacity: .35; }
+
+.iconos { display: flex; justify-content: space-between; border-top: 1px solid var(--linea); padding-top: 14px; }
+.iconos button { background: none; border: 0; color: var(--gris); font-size: .68rem; display: flex; flex-direction: column; align-items: center; gap: 4px; }
+.iconos button:hover, .iconos button.on { color: var(--texto); }
+.iconos i.icon { margin: 0; font-size: 1.2rem; }
+
+/* Zona central */
+.mesa { flex: 1; position: relative; padding: 16px 20px 28px; min-width: 0; }
+.barra { display: flex; justify-content: space-between; font-size: .8rem; color: var(--gris); }
+.barra b { font-weight: 400; }
+
+.titulo { font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: .08em; text-align: center; margin: 20px 0 14px; color: var(--texto); }
+
+.mults { display: flex; justify-content: center; gap: 6px; margin-bottom: 28px; }
+.mults span { min-width: 54px; text-align: center; padding: 3px 8px; border-radius: 3px; font-size: .72rem; font-weight: 600; color: var(--gris); border: 1px solid var(--linea); }
+.mults span.actual { background: var(--rubi); border-color: var(--rubi); color: #fff; }
+
+/* Tablero */
+.tablero-caja { position: relative; width: min(420px, 100%); margin: 0 auto; }
+.tablero { display: grid; gap: 6px; grid-template-columns: repeat(var(--n, 5), 1fr); }
+.celda { aspect-ratio: 1; border: 1px solid var(--linea); border-radius: 4px; background: var(--casilla);
+  color: var(--texto); display: flex; align-items: center; justify-content: center; font-size: 1.3rem; padding: 0; }
+.celda i.icon { margin: 0; }
+.tablero.vivo .celda:not(.abierta):hover { border-color: var(--rubi); }
+.celda.diamante { background: transparent; border-color: var(--rubi); color: var(--rubi); }
+.celda.mina { background: #000; border-color: #000; color: var(--gris); }
+.celda.mina.fallo { background: var(--rubi); border-color: var(--rubi); color: #fff; }
+.celda.tapada { opacity: .5; }
+
+.mensaje { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 0 12px;
+  pointer-events: none; font-family: "Bebas Neue", sans-serif; font-size: clamp(1.3rem, 4vw, 1.8rem); letter-spacing: .08em; color: var(--texto); }
+
+/* Panel de info e historial */
+.extra { position: absolute; inset: 16px 20px 28px; background: var(--fondo); border: 1px solid var(--linea); border-radius: 4px; padding: 20px; overflow: auto; z-index: 5; }
+.extra h2 { margin: 0 0 12px; font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: 1.5rem; letter-spacing: .06em; }
+.extra p { color: var(--gris); }
+.cerrar { position: absolute; top: 10px; right: 10px; background: none; border: 0; color: var(--gris); font-size: 1.1rem; }
+body.ds .ui.inverted.table { background: transparent; }
+body.ds .ui.inverted.table thead th { color: var(--gris); background: transparent; border-color: var(--linea); font-weight: 600; }
+body.ds .ui.inverted.table td { border-color: var(--linea); }
+.perdida { color: var(--rubi); } .ganada { color: var(--texto); font-weight: 600; } .retirada { color: var(--gris); }
+
+.pie { height: 32px; line-height: 32px; text-align: right; padding: 0 12px; font-size: .72rem; color: var(--gris); border-top: 1px solid var(--linea); }
+
+@media (max-width: 760px) {
+  .juego { flex-direction: column; }
+  .panel { width: auto; border-right: 0; border-bottom: 1px solid var(--linea); }
+  .relleno { display: none; }
+}
+
+/* Filtro y subtítulos del panel Historial */
+.filtro { display: inline-block; margin: 4px 0 14px; color: var(--gris); font-size: .85rem; }
+.filtro select { background: var(--fondo); color: var(--texto); border: 1px solid var(--linea); border-radius: 4px; padding: 6px 8px; margin-left: 6px; font-family: inherit; }
+.extra h3 { margin: 28px 0 8px; font-family: "Bebas Neue", sans-serif; font-weight: 400; font-size: 1.2rem; letter-spacing: .06em; }
